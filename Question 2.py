@@ -2,6 +2,8 @@
 # Francis Apurado
 
 
+import random
+
 while True:
     try:
         UserChoice = float(input("1. Test an individual sorting algorithm \n "
@@ -18,6 +20,14 @@ while True:
                                           "3. merge sort \n"
                                           "4. quick sort \n "
                                           "5. counting sort \n"))
+
+            arraySize = int(input("please enter the size of the array"))
+
+            RandomArray = []
+
+            for i in range(arraySize):
+                x = random.randint(0, 100)
+                RandomArray.append(x)
 
             break
 
