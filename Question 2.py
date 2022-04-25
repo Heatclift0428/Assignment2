@@ -2,9 +2,12 @@
 # Francis Apurado
 
 import random
+import time
+import sys
+
+sys.setrecursionlimit(10000)
 
 
-# selection sort algorithm
 def SelectionSort(array, size):
     for x in range(size):
         minIndex = x
@@ -13,8 +16,13 @@ def SelectionSort(array, size):
 
             if array[y] < array[minIndex]:  # will select the minimum for each loop #sorts in Ascending
                 minIndex = y
+        swap(array, minIndex, x)
 
-        (array[x], array[minIndex]) = (array[minIndex], array[x])  # append the minimum in the right position
+
+def swap(A, x, y):
+    tmp = A[x]
+    A[x] = A[y]
+    A[y] = tmp
 
 
 def insertionSort(array, size):
@@ -77,24 +85,26 @@ def partition(array, low, high):
     return i + 1
 
 
-def quickSort(array, low, high):
-    if low < high:
-        pi = partition(array, low, high)
+def quickSort(list):
+    quickSortHelper(list, 0, len(list) - 1)
 
-        quickSort(array, low, pi - 1)
 
-        quickSort(array, pi + 1, high)
+def quickSortHelper(list, left, right):
+    if left < right:
+        pivotIndex = partition(list, left, right)
+        quickSortHelper(list, left, pivotIndex - 1)
+        quickSortHelper(list, pivotIndex + 1, right)
 
 
 def countingSort(array):
     size = len(array)
     output = [0] * size
-    count = [0] * 100
+    count = [0] * 101
 
     for z in range(0, size):
         count[array[z]] += 1
 
-    for z in range(1, 100):
+    for z in range(1, 101):
         count[z] += count[z - 1]
 
     z = size - 1
@@ -112,10 +122,6 @@ while True:
     try:
         UserChoice = float(input("1. Test an individual sorting algorithm\n"
                                  "2. Test Multiple sorting algorithms\n"))
-
-        if UserChoice == 2:
-            pass
-            break
 
         if UserChoice == 1:
 
@@ -150,13 +156,60 @@ while True:
 
             if AlgorithmChoice == 4:
                 print("Not sorted: ", RandomArray)
-                quickSort(RandomArray, 0, arraySize - 1)
+                quickSort(RandomArray)
                 print('Sorted: ', RandomArray)
 
             if AlgorithmChoice == 5:
                 print("Not sorted: ", RandomArray)
                 countingSort(RandomArray)
                 print('Sorted: ', RandomArray)
+
+        if UserChoice == 2:
+
+            arraySize = int(input("please enter the size of the array\n"))
+
+            RandomArray = []
+
+            for i in range(arraySize):
+                x = random.randint(0, 100)
+                RandomArray.append(x)
+
+            print("Not sorted: ", RandomArray)
+
+            SArray = RandomArray
+            start = time.time() * 1000
+            SelectionSort(SArray, len(SArray))
+            print('Sorted (Selection): ', SArray)
+            end = time.time() * 1000
+            print('Run time ', end - start, " ms")
+
+            IArray = RandomArray
+            start = time.time() * 1000
+            insertionSort(IArray, len(IArray))
+            print('Sorted (Insertion): ', IArray)
+            end = time.time() * 1000
+            print('Run time ', end - start, " ms")
+
+            MArray = RandomArray
+            start = time.time() * 1000
+            mergeSort(MArray)
+            print('Sorted (Merge): ', MArray)
+            end = time.time() * 1000
+            print('Run time ', end - start, " ms")
+
+            QArray = RandomArray
+            start = time.time() * 1000
+            quickSort(QArray)
+            print('Sorted (Quick): ', QArray)
+            end = time.time() * 1000
+            print('Run time ', end - start, " ms")
+
+            CArray = RandomArray
+            start = time.time() * 1000
+            countingSort(CArray)
+            print('Sorted (Counting): ', CArray)
+            end = time.time() * 1000
+            print('Run time ', end - start, " ms")
 
 
         else:
