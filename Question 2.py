@@ -3,6 +3,7 @@
 
 import random
 
+
 # selection sort algorithm
 def SelectionSort(array, size):
     for x in range(size):
@@ -16,6 +17,50 @@ def SelectionSort(array, size):
         (array[x], array[minIndex]) = (array[minIndex], array[x])  # append the minimum in the right position
 
 
+def insertionSort(array, size):
+    for x in range(1, size):
+        key = array[x]
+        y = x - 1
+
+        # comparing the key array with each element on the left side until a smaller number is found
+        while y >= 0 and key < array[y]:
+            array[y + 1] = array[y]
+            y = y - 1
+
+        array[y + 1] = key
+
+
+def mergeSort(array):
+    if len(array) > 1:
+
+        mid = len(array) // 2   # middle of the array
+        Left = array[:mid]
+        Right = array[mid:]
+
+        mergeSort(Left)    # sorting left side
+        mergeSort(Right)   # sorting right side
+
+        i = j = k = 0
+
+        # Temporary Arrays
+        while i < len(Left) and j < len(Right):
+            if Left[i] < Right[j]:
+                array[k] = Left[i]
+                i += 1
+            else:
+                array[k] = Right[j]
+                j += 1
+            k += 1
+
+        while i < len(Left):  # Checks if any elements in the Left array is left
+            array[k] = Left[i]
+            i += 1
+            k += 1
+
+        while j < len(Right):   # Checks if any elements in the Right array is left
+            array[k] = Right[j]
+            j += 1
+            k += 1
 
 
 while True:
@@ -47,6 +92,17 @@ while True:
                 print("Not sorted: ", RandomArray)
                 SelectionSort(RandomArray, len(RandomArray))
                 print('Sorted: ', RandomArray)
+
+            if AlgorithmChoice == 2:
+                print("Not sorted: ", RandomArray)
+                insertionSort(RandomArray, len(RandomArray))
+                print('Sorted: ', RandomArray)
+
+            if AlgorithmChoice == 3:
+                print("Not sorted: ", RandomArray)
+                mergeSort(RandomArray)
+                print('Sorted: ', RandomArray)
+
 
         else:
             print("please enter a value within the range")
