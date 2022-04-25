@@ -33,12 +33,12 @@ def insertionSort(array, size):
 def mergeSort(array):
     if len(array) > 1:
 
-        mid = len(array) // 2   # middle of the array
+        mid = len(array) // 2  # middle of the array
         Left = array[:mid]
         Right = array[mid:]
 
-        mergeSort(Left)    # sorting left side
-        mergeSort(Right)   # sorting right side
+        mergeSort(Left)  # sorting left side
+        mergeSort(Right)  # sorting right side
 
         i = j = k = 0
 
@@ -57,12 +57,57 @@ def mergeSort(array):
             i += 1
             k += 1
 
-        while j < len(Right):   # Checks if any elements in the Right array is left
+        while j < len(Right):  # Checks if any elements in the Right array is left
             array[k] = Right[j]
             j += 1
             k += 1
 
 
+def partition(array, low, high):
+    pivot = array[high]
+
+    i = low - 1
+
+    for j in range(low, high):
+        if array[j] <= pivot:
+            i += 1
+            (array[i], array[j]) = (array[j], array[i])
+
+    (array[i + 1], array[high]) = (array[high], array[i + 1])
+    return i + 1
+
+
+def quickSort(array, low, high):
+    if low < high:
+        pi = partition(array, low, high)
+
+        quickSort(array, low, pi - 1)
+
+        quickSort(array, pi + 1, high)
+
+
+def countingSort(array):
+    size = len(array)
+    output = [0] * size
+    count = [0] * 100
+
+    for z in range(0, size):
+        count[array[z]] += 1
+
+    for z in range(1, 100):
+        count[z] += count[z - 1]
+
+    z = size - 1
+    while z >= 0:
+        output[count[array[z]] - 1] = array[z]
+        count[array[z]] -= 1
+        z -= 1
+
+    for z in range(0, size):
+        array[z] = output[z]
+
+
+# main of the program
 while True:
     try:
         UserChoice = float(input("1. Test an individual sorting algorithm\n"
@@ -101,6 +146,16 @@ while True:
             if AlgorithmChoice == 3:
                 print("Not sorted: ", RandomArray)
                 mergeSort(RandomArray)
+                print('Sorted: ', RandomArray)
+
+            if AlgorithmChoice == 4:
+                print("Not sorted: ", RandomArray)
+                quickSort(RandomArray, 0, arraySize - 1)
+                print('Sorted: ', RandomArray)
+
+            if AlgorithmChoice == 5:
+                print("Not sorted: ", RandomArray)
+                countingSort(RandomArray)
                 print('Sorted: ', RandomArray)
 
 
