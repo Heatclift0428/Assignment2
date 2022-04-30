@@ -26,7 +26,7 @@ while True:
             print("Checking lotto status")
 
         if Menu == 4:
-            print("program ending......")
+            print("program ending.......")
             quit()
 
 
