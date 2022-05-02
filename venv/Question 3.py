@@ -147,7 +147,7 @@ for x in range(1000):
 while True:
 
     try:
-        Menu = int(input("1. Show Initialized data\n"
+        Menu = float(input("1. Show Initialized data\n"
                            "2. Display Statistics\n"
                            "3. Check my lotto status\n"
                            "4. Exit\n"
@@ -158,7 +158,7 @@ while True:
             print("PWNs: ", PWNs)
             print("SWNs: ", SWNs)
 
-        if Menu == 2:
+        elif Menu == 2:
             print("Displaying statistics.....\n")
             print("Winners Statistics Table:\n")
             print("Winner Class   | Total Number of Winners\n")
@@ -167,10 +167,45 @@ while True:
             print("3rd Class:            ", Third)
             print("4th Class:            ", Fourth)
 
-        if Menu == 3:
-            print("Checking lotto status")
+        elif Menu == 3:
+            PW = 0
+            SW = 0
+            userChoice = int(input("Enter the ID: "))
+            userChoice = userChoice - 1
 
-        if Menu == 4:
+            for i in range(6):
+                result = BinarySearch(PlayerNum[x][1], PWNs[i])
+                if result != -1:
+                    PW = PW + 1
+
+            for y in range(2):
+                otherResult = BinarySearch(PlayerNum[x][1], SWNs[y])
+                if otherResult != -1:
+                    SW = SW + 1
+
+            print("Player's ID: ", PlayerNum [userChoice][0], "\n")
+            print("Player Game Numbers", PlayerNum[userChoice][1], "\n")
+            print("PWNs: ", PW, "\n")
+            print("SWNs: ", SW, "\n")
+            print("Players Status: ")
+
+            if P == 6:
+                print("You are a 1st Class winner")
+
+            elif P == 5:
+                print("You are a 2nd Class Winner ")
+
+            elif P == 4:
+                print("You are a 3rd Class Winner")
+
+            elif P == 3 & S == 2:
+                print("You are a 4th Class Winner")
+
+            else:
+                print("You are not a Winner")
+
+
+        elif Menu == 4:
             print("program ending.......")
             quit()
 
