@@ -6,18 +6,18 @@ import sys
 sys.setrecursionlimit(10000)
 
 def BinarySearch(lys, val):
-    first = 0
-    last = len(lys)-1
+    l = 0
+    r = len(lys)-1
     index = -1
-    while (first <= last) and (index == -1):
-        mid = (first+last)//2
+    while (l <= r) and (index == -1):
+        mid = (l+r)//2
         if lys[mid] == val:
             index = mid
         else:
             if val<lys[mid]:
-                last = mid -1
+                r = mid -1
             else:
-                first = mid +1
+                l = mid +1
     return index
 
 
@@ -114,22 +114,22 @@ Fourth = 0
 for x in range(1000):
     P = 0
     S = 0
-    print(PlayerNum[x][1])
+    #print(PlayerNum[x][1])
     for i in range(6):
         result = BinarySearch(PlayerNum[x][1], PWNs[i])
         if result != -1:
-            print("Primary Element is present")
+           # print("Primary Element is present")
             P = P+1
-        else:
-            print("Primay Element is not present in array")
+       # else:
+            #print("Primay Element is not present in array")
 
     for y in range (2):
         otherResult = BinarySearch(PlayerNum[x][1],SWNs[y])
         if otherResult != -1:
-            print("Secondary Element is present")
+            #print("Secondary Element is present")
             S = S + 1
-        else:
-            print("Secondary Element is not present in array")
+        #else:
+            #print("Secondary Element is not present in array")
 
     if P == 6:
         First = First + 1
@@ -183,12 +183,11 @@ while True:
                 if otherResult != -1:
                     SW = SW + 1
 
-            print("Player's ID: ", PlayerNum [userChoice][0], "\n")
-            print("Player Game Numbers", PlayerNum[userChoice][1], "\n")
-            print("PWNs: ", PW, "\n")
-            print("SWNs: ", SW, "\n")
+            print("Player's ID: ", PlayerNum [userChoice][0])
+            print("Player Game Numbers", PlayerNum[userChoice][1])
+            print("PWNs: ", PW)
+            print("SWNs: ", SW)
             print("Players Status: ")
-
             if P == 6:
                 print("You are a 1st Class winner")
 
